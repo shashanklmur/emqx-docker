@@ -19,8 +19,8 @@ RUN apk add git \
 ARG EMQX_DEPS_DEFAULT_VSN=develop
 ARG DEPLOY=cloud
 
-RUN git clone -b ${EMQX_DEPS_DEFAULT_VSN} https://github.com/emqx/emqx-rel.git /emqx_rel \
-    && cd /emqx_rel \
+RUN git clone -b develop https://github.com/shashanklmur/emqx-rel.git /emqx_rel &&\
+    cd /emqx_rel \
     && make distclean \
     && [[ ${DEPLOY} == "edge" ]] && make emqx_edge || make 
 
@@ -37,8 +37,9 @@ LABEL org.label-schema.docker.dockerfile="Dockerfile" \
     org.label-schema.vcs-url="https://github.com/emqx/emqx-docker" \
     maintainer="Raymond M Mouthaan <raymondmmouthaan@gmail.com>, Huang Rui <vowstar@gmail.com>, EMQ X Team <support@emqx.io>"
 
-ARG QEMU_ARCH=x86_64
+# ARG QEMU_ARCH=x86_64
 COPY docker-entrypoint.sh start.sh tmp/qemu-$QEMU_ARCH-stati* /usr/bin/
+# tmp/qemu-$QEMU_ARCH-stati* /usr/bin/
 COPY --from=builder /emqx_rel/_build/emqx*/rel/emqx /opt/emqx
 
 RUN ln -s /opt/emqx/bin/* /usr/local/bin/ 
