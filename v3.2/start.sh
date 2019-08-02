@@ -23,6 +23,11 @@ done
 
 # Sleep 5 seconds to wait for the loaded plugins catch up.
 sleep 5
+/opt/emqx/bin/emqx_ctl plugins load emqx_kafka_bridge
+/opt/emqx/bin/emqx_ctl plugins load emqx_sn
+
+# Sleep 5 seconds to wait for the loaded plugins catch up.
+sleep 5
 
 echo "['$(date -u +"%Y-%m-%dT%H:%M:%SZ")']:emqx start"
 

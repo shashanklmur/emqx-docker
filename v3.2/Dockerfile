@@ -16,10 +16,10 @@ RUN apk add git \
     bsd-compat-headers \
     libc-dev 
 
-ARG EMQX_DEPS_DEFAULT_VSN=develop
+ARG EMQX_DEPS_DEFAULT_VSN=master
 ARG DEPLOY=cloud
 
-RUN git clone -b ${EMQX_DEPS_DEFAULT_VSN} https://github.com/emqx/emqx-rel.git /emqx_rel \
+RUN git clone -b ${EMQX_DEPS_DEFAULT_VSN} https://github.com/shashanklmur/emqx-rel.git /emqx_rel \
     && cd /emqx_rel \
     && make distclean \
     && [[ ${DEPLOY} == "edge" ]] && make emqx_edge || make 
